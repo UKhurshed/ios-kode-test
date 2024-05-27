@@ -18,6 +18,7 @@ private enum FetchUserSection {
 
 class FetchUserUIView: UIView {
     
+    private let textField = UITextField()
     private let usersTableView = UITableView()
     private lazy var tableViewDataSource = TableViewDiff(tableView: usersTableView, cellProvider: createCell)
     
@@ -38,8 +39,52 @@ class FetchUserUIView: UIView {
         super.init(frame: frame)
         backgroundColor = .white
         
+        initTextField()
         initTableView()
         initIndicator()
+    }
+    
+    private func initTextField() {
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        textField.placeholder = "Введите имя, тег, почту..."
+        textField.layer.borderWidth = 1.0
+        textField.layer.borderColor = UIColor(rgb: 0xF7F7F8).cgColor
+        textField.backgroundColor = UIColor(rgb: 0xF7F7F8)
+        textField.textColor = UIColor(rgb: 0xC3C3C6)
+        textField.layer.cornerRadius = 16
+        
+        let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 40))
+        
+        let image = UIImage(named: "search_bar")
+        
+        let imageView = UIImageView(frame: CGRect(x: 12, y: 8, width: 24, height: 24))
+        imageView.image = image
+        
+        leftView.addSubview(imageView)
+        
+        textField.leftView = leftView
+        
+        textField.leftViewMode = .always
+        
+        let rightView = UIView(frame: CGRect(x: 0, y: 0, width: 36, height: 40))
+        
+        let rightImage = UIImage(named: "filter")
+        
+        let rightImageView = UIImageView(frame: CGRect(x: -12, y: 8, width: 24, height: 24))
+        rightImageView.image = rightImage
+        
+        rightView.addSubview(rightImageView)
+        
+        textField.rightView = rightView
+        textField.rightViewMode = .always
+        
+        addSubview(textField)
+        textField.snp.makeConstraints { make in
+            make.top.equalTo(layoutMarginsGuide.snp.top)
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(-16)
+            make.height.equalTo(40)
+        }
     }
     
     private func initTableView() {
@@ -49,9 +94,10 @@ class FetchUserUIView: UIView {
         
         addSubview(usersTableView)
         usersTableView.snp.makeConstraints { make in
-            make.top.bottom.equalToSuperview()
+            make.top.equalTo(textField.snp.bottom).offset(16)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
+            make.bottom.equalToSuperview()
         }
     }
     

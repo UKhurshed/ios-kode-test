@@ -46,6 +46,7 @@ extension FetchUserVC: DisplayLogic {
     }
     
     func showUsers(items: [ViewData]) {
+        print("items: \(items)")
         DispatchQueue.main.async {
             self.fetchUserView.setupData(users: items)
         }
