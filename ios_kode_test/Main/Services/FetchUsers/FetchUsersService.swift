@@ -8,6 +8,9 @@
 import Foundation
 
 class FetchUsersServiceImpl: FetchUsersService {
+    
+    private var viewData: [ViewData] = []
+    
     func fetchUsers(completion: @escaping (([ViewData]?, String?) -> Void)) {
         apiProvider.request(.fetchUsers) { result in
             switch result {
@@ -27,6 +30,8 @@ class FetchUsersServiceImpl: FetchUsersService {
                             birthday: item.birthday,
                             phone: item.phone))
                     }
+                    self.viewData.removeAll()
+                    self.viewData.append(contentsOf: viewData)
                     completion(viewData, nil)
                 } catch let err {
                     completion(nil, err.localizedDescription)
@@ -38,4 +43,23 @@ class FetchUsersServiceImpl: FetchUsersService {
             }
         }
     }
+    
+    func searchUser(searchText: String) -> [ViewData] {
+        
+        if searchText.isEmpty {
+            return viewData
+        } else {
+            var result: [ViewData] = []
+            
+            for viewDatum in viewData {
+                if viewDatum.firstName.contains(searchText) {
+                    result.append(viewDatum)
+                }
+            }
+            
+            return result
+        }
+        }
+        
+
 }

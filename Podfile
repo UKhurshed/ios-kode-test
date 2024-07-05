@@ -8,6 +8,7 @@ target 'ios_kode_test' do
   pod 'SnapKit'
   pod 'Moya'
   pod 'Kingfisher'
+  pod 'IQKeyboardManagerSwift'
 
 
   # Pods for ios_kode_test

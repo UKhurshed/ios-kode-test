@@ -10,6 +10,7 @@ import Foundation
 
 protocol FetchUserViewInput: AnyObject {
     func fetch()
+    func searchText(searchText: String)
 }
 
 protocol DisplayLogic: AnyObject {
@@ -36,5 +37,10 @@ class FetchUserPresenter: FetchUserViewInput {
                 }
             }
         }
+    }
+    
+    func searchText(searchText: String) {
+        let result = fetchUser.searchUsers(searchText: searchText)
+        viewController?.showUsers(items: result)
     }
 }

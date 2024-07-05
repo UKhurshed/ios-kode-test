@@ -10,6 +10,8 @@ import SnapKit
 
 protocol FetchUserUIViewDelegate: AnyObject {
     func openUserProfile(data: ViewData)
+    func refreshEmployee()
+    func searchUser(searchText: String)
 }
 
 private typealias TableViewDiff = UITableViewDiffableDataSource<FetchUserSection, ViewData>
@@ -22,13 +24,16 @@ private enum FetchUserSection {
 
 class FetchUserUIView: UIView {
     
-    private let textField = UITextField()
+    private let searchBar = EmployeeSearchBar()
     private let usersTableView = UITableView()
+    private let refreshControl = UIRefreshControl()
     private lazy var tableViewDataSource = TableViewDiff(tableView: usersTableView, cellProvider: createCell)
 
     private var userData: [ViewData] = []
     
     weak var delegate: FetchUserUIViewDelegate?
+    
+    var isTextFieldActive = false
     
     private func createCell(
         tableView: UITableView,
@@ -46,65 +51,46 @@ class FetchUserUIView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         backgroundColor = .white
-        
-        initTextField()
+
+        initSearchBar()
         initTableView()
         initIndicator()
+        initRefreshControl()
     }
     
-    private func initTextField() {
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.placeholder = "Введите имя, тег, почту..."
-        textField.layer.borderWidth = 1.0
-        textField.layer.borderColor = UIColor(rgb: 0xF7F7F8).cgColor
-        textField.backgroundColor = UIColor(rgb: 0xF7F7F8)
-        textField.textColor = UIColor(rgb: 0xC3C3C6)
-        textField.layer.cornerRadius = 16
+    private func initSearchBar() {
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.searchBarDelegate = self
         
-        let leftView = UIView(frame: CGRect(x: 0, y: 0, width: 44, height: 40))
-        
-        let image = UIImage(named: "search_bar")
-        
-        let imageView = UIImageView(frame: CGRect(x: 12, y: 8, width: 24, height: 24))
-        imageView.image = image
-        
-        leftView.addSubview(imageView)
-        
-        textField.leftView = leftView
-        
-        textField.leftViewMode = .always
-        
-        let rightView = UIView(frame: CGRect(x: 0, y: 0, width: 36, height: 40))
-        
-        let rightImage = UIImage(named: "filter")
-        
-        let rightImageView = UIImageView(frame: CGRect(x: -12, y: 8, width: 24, height: 24))
-        rightImageView.image = rightImage
-        
-        rightView.addSubview(rightImageView)
-        
-        textField.rightView = rightView
-        textField.rightViewMode = .always
-        
-        addSubview(textField)
-        textField.snp.makeConstraints { make in
-            make.top.equalTo(layoutMarginsGuide.snp.top)
+        addSubview(searchBar)
+        searchBar.snp.makeConstraints { make in
+            make.top.equalTo(layoutMarginsGuide.snp.top).offset(6)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(40)
         }
     }
     
+    private func initRefreshControl() {
+        refreshControl.tintColor = UIColor(rgb: 0xFF595F67)
+        refreshControl.addTarget(self, action: #selector(refresh), for: .valueChanged)
+    }
+    
+    @objc private func refresh() {
+        delegate?.refreshEmployee()
+    }
+    
     private func initTableView() {
         usersTableView.translatesAutoresizingMaskIntoConstraints = false
         usersTableView.register(UserTVC.self, forCellReuseIdentifier: UserTVC.identifier)
         usersTableView.separatorStyle = .none
+        usersTableView.refreshControl = refreshControl
         
         usersTableView.delegate = self
         
         addSubview(usersTableView)
         usersTableView.snp.makeConstraints { make in
-            make.top.equalTo(textField.snp.bottom).offset(16)
+            make.top.equalTo(searchBar.snp.bottom).offset(16)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
             make.bottom.equalToSuperview()
@@ -148,6 +134,16 @@ class FetchUserUIView: UIView {
     func showError() {
         self.indicator.stopAnimating()
         self.usersTableView.isHidden = true
+    }
+}
+
+extension FetchUserUIView: EmployeeSearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        delegate?.searchUser(searchText: searchText)
+    }
+    
+    func searchBarBookmarkButtonClicked(_ searcBar: UISearchBar) {
+        
     }
 }
 

@@ -9,10 +9,14 @@ import Foundation
 
 protocol FetchAllUsers: AnyObject {
     func fetchUsers(completion: @escaping (([ViewData]?, String?) -> Void))
+    
+    func searchUsers(searchText: String) -> [ViewData]
 }
 
 protocol FetchUsersService: AnyObject {
     func fetchUsers(completion: @escaping (([ViewData]?, String?) -> Void))
+    
+    func searchUser(searchText: String) -> [ViewData]
 }
 
 class FetchAllUsersImpl: FetchAllUsers {
@@ -31,5 +35,9 @@ class FetchAllUsersImpl: FetchAllUsers {
                 completion(nil, error)
             }
         }
+    }
+    
+    func searchUsers(searchText: String) -> [ViewData] {
+        return service.searchUser(searchText: searchText)
     }
 }

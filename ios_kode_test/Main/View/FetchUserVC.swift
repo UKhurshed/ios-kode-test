@@ -46,7 +46,6 @@ extension FetchUserVC: DisplayLogic {
     }
     
     func showUsers(items: [ViewData]) {
-        print("items: \(items)")
         DispatchQueue.main.async {
             self.fetchUserView.setupData(users: items)
         }
@@ -54,10 +53,19 @@ extension FetchUserVC: DisplayLogic {
 }
 
 extension FetchUserVC: FetchUserUIViewDelegate {
+    
     func openUserProfile(data: ViewData) {
         let vc = UserProfileVC(data: data)
         vc.navigationItem.hidesBackButton = true
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func refreshEmployee() {
+        presenterInput.fetch()
+    }
+    
+    func searchUser(searchText: String) {
+        presenterInput.searchText(searchText: searchText)
     }
 }
 
