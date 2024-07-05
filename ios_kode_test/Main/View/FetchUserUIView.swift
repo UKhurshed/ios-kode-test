@@ -8,6 +8,10 @@
 import UIKit
 import SnapKit
 
+protocol FetchUserUIViewDelegate: AnyObject {
+    func openUserProfile(data: ViewData)
+}
+
 private typealias TableViewDiff = UITableViewDiffableDataSource<FetchUserSection, ViewData>
 
 private typealias TableViewSnapshot = NSDiffableDataSourceSnapshot<FetchUserSection, ViewData>
@@ -21,6 +25,10 @@ class FetchUserUIView: UIView {
     private let textField = UITextField()
     private let usersTableView = UITableView()
     private lazy var tableViewDataSource = TableViewDiff(tableView: usersTableView, cellProvider: createCell)
+
+    private var userData: [ViewData] = []
+    
+    weak var delegate: FetchUserUIViewDelegate?
     
     private func createCell(
         tableView: UITableView,
@@ -92,6 +100,8 @@ class FetchUserUIView: UIView {
         usersTableView.register(UserTVC.self, forCellReuseIdentifier: UserTVC.identifier)
         usersTableView.separatorStyle = .none
         
+        usersTableView.delegate = self
+        
         addSubview(usersTableView)
         usersTableView.snp.makeConstraints { make in
             make.top.equalTo(textField.snp.bottom).offset(16)
@@ -118,6 +128,7 @@ class FetchUserUIView: UIView {
     }
     
     func setupData(users: [ViewData]) {
+        self.userData = users
         var snapshot = TableViewSnapshot()
         snapshot.appendSections([.main])
         snapshot.appendItems(users)
@@ -137,5 +148,11 @@ class FetchUserUIView: UIView {
     func showError() {
         self.indicator.stopAnimating()
         self.usersTableView.isHidden = true
+    }
+}
+
+extension FetchUserUIView: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        delegate?.openUserProfile(data: self.userData[indexPath.row]) 
     }
 }

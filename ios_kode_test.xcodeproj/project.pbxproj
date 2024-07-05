@@ -23,6 +23,10 @@
 		D37B85E22BE0E6CF00DF7620 /* FetchUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37B85E12BE0E6CF00DF7620 /* FetchUserVC.swift */; };
 		D37B85E72BE0E6D000DF7620 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D37B85E62BE0E6D000DF7620 /* Assets.xcassets */; };
 		D37B85EA2BE0E6D000DF7620 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = D37B85E82BE0E6D000DF7620 /* LaunchScreen.storyboard */; };
+		D3C3C8032C065016004FA79D /* UIView + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3C3C8022C065016004FA79D /* UIView + Extension.swift */; };
+		D3DE820E2C05046D00F308FB /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DE820D2C05046D00F308FB /* UserProfileVC.swift */; };
+		D3DE82102C059CA000F308FB /* UserProfileUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DE820F2C059CA000F308FB /* UserProfileUIView.swift */; };
+		D3DE82122C05BD2300F308FB /* String + Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = D3DE82112C05BD2300F308FB /* String + Extension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,6 +50,10 @@
 		D37B85E62BE0E6D000DF7620 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D37B85E92BE0E6D000DF7620 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		D37B85EB2BE0E6D000DF7620 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		D3C3C8022C065016004FA79D /* UIView + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + Extension.swift"; sourceTree = "<group>"; };
+		D3DE820D2C05046D00F308FB /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
+		D3DE820F2C059CA000F308FB /* UserProfileUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileUIView.swift; sourceTree = "<group>"; };
+		D3DE82112C05BD2300F308FB /* String + Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String + Extension.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +80,8 @@
 			isa = PBXGroup;
 			children = (
 				D30096C52BFA3C13004DDA63 /* UIColor+Extension.swift */,
+				D3DE82112C05BD2300F308FB /* String + Extension.swift */,
+				D3C3C8022C065016004FA79D /* UIView + Extension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -185,8 +195,26 @@
 			children = (
 				D365659C2BE776DA001B8496 /* Core */,
 				D365659B2BE776CE001B8496 /* Main */,
+				D3DE820B2C05033E00F308FB /* UserProfile */,
 			);
 			path = ios_kode_test;
+			sourceTree = "<group>";
+		};
+		D3DE820B2C05033E00F308FB /* UserProfile */ = {
+			isa = PBXGroup;
+			children = (
+				D3DE820C2C0503E000F308FB /* View */,
+			);
+			path = UserProfile;
+			sourceTree = "<group>";
+		};
+		D3DE820C2C0503E000F308FB /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D3DE820D2C05046D00F308FB /* UserProfileVC.swift */,
+				D3DE820F2C059CA000F308FB /* UserProfileUIView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		E0FF98AA969AFB1B90ECD216 /* Pods */ = {
@@ -314,13 +342,17 @@
 			files = (
 				D37B85E22BE0E6CF00DF7620 /* FetchUserVC.swift in Sources */,
 				D36565A92BE79B1A001B8496 /* FetchUserPresenter.swift in Sources */,
+				D3DE82122C05BD2300F308FB /* String + Extension.swift in Sources */,
 				D37B85DE2BE0E6CF00DF7620 /* AppDelegate.swift in Sources */,
 				D36565AB2BE79BEA001B8496 /* FetchUserAssembly.swift in Sources */,
 				D306E1602BE7E4FE00A12499 /* UserTVC.swift in Sources */,
 				D37B85E02BE0E6CF00DF7620 /* SceneDelegate.swift in Sources */,
 				D36565A12BE777EB001B8496 /* FetchUsersService.swift in Sources */,
+				D3C3C8032C065016004FA79D /* UIView + Extension.swift in Sources */,
 				D36565A72BE77BA4001B8496 /* API.swift in Sources */,
+				D3DE82102C059CA000F308FB /* UserProfileUIView.swift in Sources */,
 				D36565A42BE7789F001B8496 /* FetchAllUsers.swift in Sources */,
+				D3DE820E2C05046D00F308FB /* UserProfileVC.swift in Sources */,
 				D306E15B2BE7C71700A12499 /* FetchUserUIView.swift in Sources */,
 				D30096C62BFA3C13004DDA63 /* UIColor+Extension.swift in Sources */,
 				D306E15D2BE7C8A800A12499 /* ViewData.swift in Sources */,

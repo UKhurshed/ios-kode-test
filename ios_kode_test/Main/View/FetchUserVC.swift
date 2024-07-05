@@ -21,7 +21,7 @@ class FetchUserVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        fetchUserView.delegate = self
         presenterInput.fetch()
     }
 }
@@ -50,6 +50,14 @@ extension FetchUserVC: DisplayLogic {
         DispatchQueue.main.async {
             self.fetchUserView.setupData(users: items)
         }
+    }
+}
+
+extension FetchUserVC: FetchUserUIViewDelegate {
+    func openUserProfile(data: ViewData) {
+        let vc = UserProfileVC(data: data)
+        vc.navigationItem.hidesBackButton = true
+        self.navigationController?.pushViewController(vc, animated: true)
     }
 }
 
