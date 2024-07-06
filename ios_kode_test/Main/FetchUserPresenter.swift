@@ -11,13 +11,14 @@ import Foundation
 protocol FetchUserViewInput: AnyObject {
     func fetch()
     func searchText(searchText: String)
+    func clearState()
 }
 
 protocol DisplayLogic: AnyObject {
     func showUsers(items: [ViewData])
     func showLoader()
     func hideLoader()
-    func presentAlertError(message: String)
+    func showError(message: String)
 }
 
 class FetchUserPresenter: FetchUserViewInput {
@@ -30,7 +31,7 @@ class FetchUserPresenter: FetchUserViewInput {
         fetchUser.fetchUsers { [weak self] model, error in
             self?.viewController?.hideLoader()
             if let error {
-                self?.viewController?.presentAlertError(message: error)
+                self?.viewController?.showError(message: error)
             } else {
                 if let model = model {
                     self?.viewController?.showUsers(items: model)
@@ -41,6 +42,11 @@ class FetchUserPresenter: FetchUserViewInput {
     
     func searchText(searchText: String) {
         let result = fetchUser.searchUsers(searchText: searchText)
+        viewController?.showUsers(items: result)
+    }
+    
+    func clearState() {
+        let result = fetchUser.clearState()
         viewController?.showUsers(items: result)
     }
 }

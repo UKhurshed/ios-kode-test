@@ -14,11 +14,15 @@
 		D306E15D2BE7C8A800A12499 /* ViewData.swift in Sources */ = {isa = PBXBuildFile; fileRef = D306E15C2BE7C8A800A12499 /* ViewData.swift */; };
 		D306E1602BE7E4FE00A12499 /* UserTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D306E15F2BE7E4FE00A12499 /* UserTVC.swift */; };
 		D314419A2C37E56D00D2F5A1 /* EmployeeSearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = D31441992C37E56D00D2F5A1 /* EmployeeSearchBar.swift */; };
+		D344295D2C386F4B008C48F1 /* SortingModalVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D344295C2C386F4B008C48F1 /* SortingModalVC.swift */; };
+		D34429602C38710A008C48F1 /* SortingModalUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D344295F2C38710A008C48F1 /* SortingModalUIView.swift */; };
 		D36565A12BE777EB001B8496 /* FetchUsersService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36565A02BE777EB001B8496 /* FetchUsersService.swift */; };
 		D36565A42BE7789F001B8496 /* FetchAllUsers.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36565A32BE7789F001B8496 /* FetchAllUsers.swift */; };
 		D36565A72BE77BA4001B8496 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36565A62BE77BA4001B8496 /* API.swift */; };
 		D36565A92BE79B1A001B8496 /* FetchUserPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36565A82BE79B1A001B8496 /* FetchUserPresenter.swift */; };
 		D36565AB2BE79BEA001B8496 /* FetchUserAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36565AA2BE79BEA001B8496 /* FetchUserAssembly.swift */; };
+		D367605F2C398BA8008AFCAE /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D367605E2C398BA8008AFCAE /* EmptyView.swift */; };
+		D36760612C39A975008AFCAE /* CriticalErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D36760602C39A975008AFCAE /* CriticalErrorView.swift */; };
 		D37B85DE2BE0E6CF00DF7620 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37B85DD2BE0E6CF00DF7620 /* AppDelegate.swift */; };
 		D37B85E02BE0E6CF00DF7620 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37B85DF2BE0E6CF00DF7620 /* SceneDelegate.swift */; };
 		D37B85E22BE0E6CF00DF7620 /* FetchUserVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = D37B85E12BE0E6CF00DF7620 /* FetchUserVC.swift */; };
@@ -40,11 +44,15 @@
 		D306E15C2BE7C8A800A12499 /* ViewData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewData.swift; sourceTree = "<group>"; };
 		D306E15F2BE7E4FE00A12499 /* UserTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTVC.swift; sourceTree = "<group>"; };
 		D31441992C37E56D00D2F5A1 /* EmployeeSearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmployeeSearchBar.swift; sourceTree = "<group>"; };
+		D344295C2C386F4B008C48F1 /* SortingModalVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingModalVC.swift; sourceTree = "<group>"; };
+		D344295F2C38710A008C48F1 /* SortingModalUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortingModalUIView.swift; sourceTree = "<group>"; };
 		D36565A02BE777EB001B8496 /* FetchUsersService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUsersService.swift; sourceTree = "<group>"; };
 		D36565A32BE7789F001B8496 /* FetchAllUsers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchAllUsers.swift; sourceTree = "<group>"; };
 		D36565A62BE77BA4001B8496 /* API.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		D36565A82BE79B1A001B8496 /* FetchUserPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUserPresenter.swift; sourceTree = "<group>"; };
 		D36565AA2BE79BEA001B8496 /* FetchUserAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FetchUserAssembly.swift; sourceTree = "<group>"; };
+		D367605E2C398BA8008AFCAE /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
+		D36760602C39A975008AFCAE /* CriticalErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CriticalErrorView.swift; sourceTree = "<group>"; };
 		D37B85DA2BE0E6CF00DF7620 /* ios_kode_test.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ios_kode_test.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D37B85DD2BE0E6CF00DF7620 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D37B85DF2BE0E6CF00DF7620 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -108,12 +116,24 @@
 		D306E1612BE8B9FC00A12499 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D344295E2C3870E9008C48F1 /* SortingModal */,
 				D306E15E2BE7E4CE00A12499 /* Cell */,
 				D37B85E12BE0E6CF00DF7620 /* FetchUserVC.swift */,
 				D306E15A2BE7C71700A12499 /* FetchUserUIView.swift */,
 				D31441992C37E56D00D2F5A1 /* EmployeeSearchBar.swift */,
+				D367605E2C398BA8008AFCAE /* EmptyView.swift */,
+				D36760602C39A975008AFCAE /* CriticalErrorView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		D344295E2C3870E9008C48F1 /* SortingModal */ = {
+			isa = PBXGroup;
+			children = (
+				D344295C2C386F4B008C48F1 /* SortingModalVC.swift */,
+				D344295F2C38710A008C48F1 /* SortingModalUIView.swift */,
+			);
+			path = SortingModal;
 			sourceTree = "<group>";
 		};
 		D365659B2BE776CE001B8496 /* Main */ = {
@@ -343,6 +363,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D36760612C39A975008AFCAE /* CriticalErrorView.swift in Sources */,
 				D37B85E22BE0E6CF00DF7620 /* FetchUserVC.swift in Sources */,
 				D36565A92BE79B1A001B8496 /* FetchUserPresenter.swift in Sources */,
 				D3DE82122C05BD2300F308FB /* String + Extension.swift in Sources */,
@@ -353,6 +374,8 @@
 				D36565A12BE777EB001B8496 /* FetchUsersService.swift in Sources */,
 				D3C3C8032C065016004FA79D /* UIView + Extension.swift in Sources */,
 				D314419A2C37E56D00D2F5A1 /* EmployeeSearchBar.swift in Sources */,
+				D344295D2C386F4B008C48F1 /* SortingModalVC.swift in Sources */,
+				D34429602C38710A008C48F1 /* SortingModalUIView.swift in Sources */,
 				D36565A72BE77BA4001B8496 /* API.swift in Sources */,
 				D3DE82102C059CA000F308FB /* UserProfileUIView.swift in Sources */,
 				D36565A42BE7789F001B8496 /* FetchAllUsers.swift in Sources */,
@@ -360,6 +383,7 @@
 				D306E15B2BE7C71700A12499 /* FetchUserUIView.swift in Sources */,
 				D30096C62BFA3C13004DDA63 /* UIColor+Extension.swift in Sources */,
 				D306E15D2BE7C8A800A12499 /* ViewData.swift in Sources */,
+				D367605F2C398BA8008AFCAE /* EmptyView.swift in Sources */,
 				D306E1572BE7BF6600A12499 /* UsersModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

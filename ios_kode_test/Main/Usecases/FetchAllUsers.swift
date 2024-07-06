@@ -11,12 +11,16 @@ protocol FetchAllUsers: AnyObject {
     func fetchUsers(completion: @escaping (([ViewData]?, String?) -> Void))
     
     func searchUsers(searchText: String) -> [ViewData]
+    
+    func clearState() -> [ViewData]
 }
 
 protocol FetchUsersService: AnyObject {
     func fetchUsers(completion: @escaping (([ViewData]?, String?) -> Void))
     
     func searchUser(searchText: String) -> [ViewData]
+    
+    func clearState() -> [ViewData]
 }
 
 class FetchAllUsersImpl: FetchAllUsers {
@@ -39,5 +43,9 @@ class FetchAllUsersImpl: FetchAllUsers {
     
     func searchUsers(searchText: String) -> [ViewData] {
         return service.searchUser(searchText: searchText)
+    }
+    
+    func clearState() -> [ViewData] {
+        return service.clearState()
     }
 }

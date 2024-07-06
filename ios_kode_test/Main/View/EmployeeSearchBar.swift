@@ -10,6 +10,7 @@ import UIKit
 protocol EmployeeSearchBarDelegate: AnyObject {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String)
     func searchBarBookmarkButtonClicked(_ searcBar: UISearchBar)
+    func cancelTapped()
 }
 
 final class EmployeeSearchBar: UISearchBar {
@@ -39,9 +40,7 @@ final class EmployeeSearchBar: UISearchBar {
         self.searchTextField.textColor = UIColor(rgb: 0x050510)
         
         self.setImage(UIImage(named: "search_bar"), for: .search, state: .normal)
-        self.setImage(UIImage(named: "unselected_filter"), for: .bookmark, state: .normal)
-        self.setImage(UIImage(named: "selected_filter"), for: .bookmark, state: .selected)
-        self.showsBookmarkButton = true
+        self.showsBookmarkButton = false
         self.setImage(UIImage(named: "clear"), for: .clear, state: .normal)
         
         UIBarButtonItem.appearance(whenContainedInInstancesOf: [UISearchBar.self]).title = "Отмена"
@@ -62,7 +61,6 @@ extension EmployeeSearchBar: UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         self.showsCancelButton = true
         self.setImage(UIImage(named: "search_filled"), for: .search, state: .normal)
-        self.showsBookmarkButton = false
         self.placeholder = ""
         if let textField = searchBar.value(forKey: "searchField") as? UITextField {
             textField.tintColor = UIColor(red: 0.396, green: 0.204, blue: 1, alpha: 1)
@@ -74,14 +72,11 @@ extension EmployeeSearchBar: UISearchBarDelegate {
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        self.showsCancelButton = false
+        self.searchTextField.resignFirstResponder()
+        self.searchTextField.text = ""
         setImage(UIImage(named: "search_bar"), for: .search, state: .normal)
-        self.showsBookmarkButton = true
         self.placeholder = "Введи имя, тег, почту ..."
+        self.showsCancelButton = false
+        searchBarDelegate?.cancelTapped()
     }
-    
-    func searchBarBookmarkButtonClicked(_ searchBar: UISearchBar) {
-        searchBarDelegate?.searchBarBookmarkButtonClicked(searchBar)
-    }
-    
 }

@@ -38,7 +38,6 @@ class FetchUsersServiceImpl: FetchUsersService {
                 }
                 
             case .failure(let error):
-                print("error: \(error.errorCode) & desc: \(error.errorDescription)")
                 completion(nil, error.localizedDescription)
             }
         }
@@ -59,7 +58,9 @@ class FetchUsersServiceImpl: FetchUsersService {
             
             return result
         }
-        }
-        
-
+    }
+    
+    func clearState() -> [ViewData] {
+        return viewData
+    }
 }

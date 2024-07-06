@@ -39,7 +39,7 @@ extension FetchUserVC: DisplayLogic {
         }
     }
     
-    func presentAlertError(message: String) {
+    func showError(message: String) {
         DispatchQueue.main.async {
             self.fetchUserView.showError()
         }
@@ -66,6 +66,19 @@ extension FetchUserVC: FetchUserUIViewDelegate {
     
     func searchUser(searchText: String) {
         presenterInput.searchText(searchText: searchText)
+    }
+    
+    func openFilterView() {
+        let sortingModalVC = SortingModalVC()
+        navigationController?.present(sortingModalVC, animated: true)
+    }
+    
+    func cancelTapped() {
+        presenterInput.clearState()
+    }
+    
+    func repeatAgain() {
+        presenterInput.fetch()
     }
 }
 

@@ -12,6 +12,9 @@ protocol FetchUserUIViewDelegate: AnyObject {
     func openUserProfile(data: ViewData)
     func refreshEmployee()
     func searchUser(searchText: String)
+    func openFilterView()
+    func cancelTapped()
+    func repeatAgain()
 }
 
 private typealias TableViewDiff = UITableViewDiffableDataSource<FetchUserSection, ViewData>
@@ -26,6 +29,8 @@ class FetchUserUIView: UIView {
     
     private let searchBar = EmployeeSearchBar()
     private let usersTableView = UITableView()
+    private let emptyView = EmptyView()
+    private let criticalErrorView = CriticalErrorView()
     private let refreshControl = UIRefreshControl()
     private lazy var tableViewDataSource = TableViewDiff(tableView: usersTableView, cellProvider: createCell)
 
@@ -54,6 +59,8 @@ class FetchUserUIView: UIView {
 
         initSearchBar()
         initTableView()
+        initEmptyView()
+        initCriticalErrorView()
         initIndicator()
         initRefreshControl()
     }
@@ -64,7 +71,7 @@ class FetchUserUIView: UIView {
         
         addSubview(searchBar)
         searchBar.snp.makeConstraints { make in
-            make.top.equalTo(layoutMarginsGuide.snp.top).offset(6)
+            make.top.equalTo(layoutMarginsGuide.snp.top)
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
             make.height.equalTo(40)
@@ -78,6 +85,7 @@ class FetchUserUIView: UIView {
     
     @objc private func refresh() {
         delegate?.refreshEmployee()
+        refreshControl.endRefreshing()
     }
     
     private func initTableView() {
@@ -97,6 +105,28 @@ class FetchUserUIView: UIView {
         }
     }
     
+    private func initEmptyView() {
+        emptyView.translatesAutoresizingMaskIntoConstraints = false
+        emptyView.isHidden = true
+        
+        addSubview(emptyView)
+        emptyView.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom).offset(80)
+            make.centerX.equalToSuperview()
+        }
+    }
+    
+    private func initCriticalErrorView() {
+        criticalErrorView.translatesAutoresizingMaskIntoConstraints = false
+        criticalErrorView.isHidden = true
+        criticalErrorView.delegate = self
+        
+        addSubview(criticalErrorView)
+        criticalErrorView.snp.makeConstraints { make in
+            make.edges.equalToSuperview()
+        }
+    }
+    
     private func initIndicator() {
         indicator.translatesAutoresizingMaskIntoConstraints = false
         indicator.stopAnimating()
@@ -106,7 +136,6 @@ class FetchUserUIView: UIView {
         indicator.snp.makeConstraints { make in
             make.top.bottom.leading.trailing.equalToSuperview()
         }
-       
     }
     
     required init?(coder: NSCoder) {
@@ -114,26 +143,41 @@ class FetchUserUIView: UIView {
     }
     
     func setupData(users: [ViewData]) {
-        self.userData = users
-        var snapshot = TableViewSnapshot()
-        snapshot.appendSections([.main])
-        snapshot.appendItems(users)
-        tableViewDataSource.apply(snapshot, animatingDifferences: true)
+        self.criticalErrorView.isHidden = true
+        self.searchBar.isHidden = false
+        if users.isEmpty {
+            usersTableView.isHidden = true
+            emptyView.isHidden = false
+        } else {
+            usersTableView.isHidden = false
+            emptyView.isHidden = true
+            self.userData = users
+            var snapshot = TableViewSnapshot()
+            snapshot.appendSections([.main])
+            snapshot.appendItems(users)
+            tableViewDataSource.apply(snapshot, animatingDifferences: true)
+        }
     }
     
     func showLoader() {
         self.indicator.startAnimating()
+        self.searchBar.isHidden = false
         self.usersTableView.isHidden = true
+        self.criticalErrorView.isHidden = true
     }
     
     func hideLoader() {
         self.indicator.stopAnimating()
+        self.searchBar.isHidden = false
         self.usersTableView.isHidden = false
+        self.criticalErrorView.isHidden = true
     }
     
     func showError() {
         self.indicator.stopAnimating()
         self.usersTableView.isHidden = true
+        self.searchBar.isHidden = true
+        self.criticalErrorView.isHidden = false
     }
 }
 
@@ -143,7 +187,18 @@ extension FetchUserUIView: EmployeeSearchBarDelegate {
     }
     
     func searchBarBookmarkButtonClicked(_ searcBar: UISearchBar) {
-        
+        delegate?.openFilterView()
+    }
+    
+    func cancelTapped() {
+        delegate?.cancelTapped()
+    }
+    
+}
+
+extension FetchUserUIView: CriticalErrorViewDelegate {
+    func repeatAgain() {
+        delegate?.repeatAgain()
     }
 }
 
