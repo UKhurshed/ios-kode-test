@@ -12,7 +12,6 @@ protocol FetchUserUIViewDelegate: AnyObject {
     func openUserProfile(data: ViewData)
     func refreshEmployee()
     func searchUser(searchText: String)
-    func openFilterView()
     func cancelTapped()
     func repeatAgain()
 }
@@ -25,16 +24,24 @@ private enum FetchUserSection {
     case main
 }
 
+enum FetchUserItem: Hashable {
+    case loading(UUID)
+    case fetched(ViewData)
+}
+
 class FetchUserUIView: UIView {
     
     private let searchBar = EmployeeSearchBar()
     private let usersTableView = UITableView()
     private let emptyView = EmptyView()
     private let criticalErrorView = CriticalErrorView()
+    private let skeletonView = SkeletonListView()
     private let refreshControl = UIRefreshControl()
     private lazy var tableViewDataSource = TableViewDiff(tableView: usersTableView, cellProvider: createCell)
 
     private var userData: [ViewData] = []
+    private var usersDataCount = 0
+    var loaded = false
     
     weak var delegate: FetchUserUIViewDelegate?
     
@@ -50,8 +57,6 @@ class FetchUserUIView: UIView {
         cell.setupData(data: data)
         return cell
     }
-    
-    private let indicator = UIActivityIndicatorView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -59,9 +64,9 @@ class FetchUserUIView: UIView {
 
         initSearchBar()
         initTableView()
+        initSkeletonView()
         initEmptyView()
         initCriticalErrorView()
-        initIndicator()
         initRefreshControl()
     }
     
@@ -93,7 +98,6 @@ class FetchUserUIView: UIView {
         usersTableView.register(UserTVC.self, forCellReuseIdentifier: UserTVC.identifier)
         usersTableView.separatorStyle = .none
         usersTableView.refreshControl = refreshControl
-        
         usersTableView.delegate = self
         
         addSubview(usersTableView)
@@ -102,6 +106,18 @@ class FetchUserUIView: UIView {
             make.leading.equalToSuperview().offset(16)
             make.trailing.equalToSuperview().offset(-16)
             make.bottom.equalToSuperview()
+        }
+    }
+    
+    private func initSkeletonView() {
+        skeletonView.translatesAutoresizingMaskIntoConstraints = false
+        skeletonView.isHidden = true
+        
+        addSubview(skeletonView)
+        skeletonView.snp.makeConstraints { make in
+            make.top.equalTo(searchBar.snp.bottom).offset(16)
+            make.leading.equalToSuperview().offset(16)
+            make.trailing.equalToSuperview().offset(16)
         }
     }
     
@@ -127,17 +143,6 @@ class FetchUserUIView: UIView {
         }
     }
     
-    private func initIndicator() {
-        indicator.translatesAutoresizingMaskIntoConstraints = false
-        indicator.stopAnimating()
-        indicator.center = center
-        
-        addSubview(indicator)
-        indicator.snp.makeConstraints { make in
-            make.top.bottom.leading.trailing.equalToSuperview()
-        }
-    }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -159,25 +164,29 @@ class FetchUserUIView: UIView {
         }
     }
     
+    func setupGradientSettings() {
+        skeletonView.setupSkeletonsFrame()
+    }
+    
     func showLoader() {
-        self.indicator.startAnimating()
         self.searchBar.isHidden = false
         self.usersTableView.isHidden = true
         self.criticalErrorView.isHidden = true
+        self.skeletonView.isHidden = false
     }
     
     func hideLoader() {
-        self.indicator.stopAnimating()
         self.searchBar.isHidden = false
         self.usersTableView.isHidden = false
         self.criticalErrorView.isHidden = true
+        self.skeletonView.isHidden = true
     }
     
     func showError() {
-        self.indicator.stopAnimating()
         self.usersTableView.isHidden = true
         self.searchBar.isHidden = true
         self.criticalErrorView.isHidden = false
+        self.skeletonView.isHidden = true
     }
 }
 
@@ -186,14 +195,9 @@ extension FetchUserUIView: EmployeeSearchBarDelegate {
         delegate?.searchUser(searchText: searchText)
     }
     
-    func searchBarBookmarkButtonClicked(_ searcBar: UISearchBar) {
-        delegate?.openFilterView()
-    }
-    
     func cancelTapped() {
         delegate?.cancelTapped()
     }
-    
 }
 
 extension FetchUserUIView: CriticalErrorViewDelegate {

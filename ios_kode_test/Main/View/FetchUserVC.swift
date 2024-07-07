@@ -18,6 +18,11 @@ class FetchUserVC: UIViewController {
     override func loadView() {
         view = FetchUserUIView()
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        fetchUserView.setupGradientSettings()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -67,12 +72,7 @@ extension FetchUserVC: FetchUserUIViewDelegate {
     func searchUser(searchText: String) {
         presenterInput.searchText(searchText: searchText)
     }
-    
-    func openFilterView() {
-        let sortingModalVC = SortingModalVC()
-        navigationController?.present(sortingModalVC, animated: true)
-    }
-    
+
     func cancelTapped() {
         presenterInput.clearState()
     }

@@ -22,7 +22,7 @@ class EmptyView: UIView {
     
     private func initImageView() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "empty_list_by_search")
+        imageView.image = R.image.empty_list_by_search()
         
         addSubview(imageView)
         imageView.snp.makeConstraints { make in
@@ -34,8 +34,8 @@ class EmptyView: UIView {
     
     private func initTitleLbl() {
         titleLbl.translatesAutoresizingMaskIntoConstraints = false
-        titleLbl.text = "Мы никого не нашли"
-        titleLbl.textColor = UIColor(rgb: 0x050510)
+        titleLbl.text = R.string.strings.weNobodyFound()
+        titleLbl.textColor = R.color.text_black_dark()
         
         addSubview(titleLbl)
         titleLbl.snp.makeConstraints { make in
@@ -46,8 +46,8 @@ class EmptyView: UIView {
     
     private func initDescLbl() {
         descriptionLbl.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLbl.text = "Попробуй скорректировать запрос"
-        descriptionLbl.textColor = UIColor(rgb: 0x97979B)
+        descriptionLbl.text = R.string.strings.tryCorrectQuery()
+        descriptionLbl.textColor = R.color.text_black_light()
         
         addSubview(descriptionLbl)
         descriptionLbl.snp.makeConstraints { make in

@@ -21,9 +21,9 @@ class UserProfileUIView: UIView {
     private let departmentLbl = UILabel()
     private let positionLbl = UILabel()
     private let infoBackView = UIView()
-    private let birthInfoCard = UserInfoCell()
+    private let birthInfoCard = UserInfoSection()
     private let separatorLineV = UIView()
-    private let phoneNumberCard = UserInfoCell()
+    private let phoneNumberCard = UserInfoSection()
     
     weak var delegate: UserProfileUIViewDelegate?
     
@@ -46,7 +46,7 @@ class UserProfileUIView: UIView {
     
     private func initBackBtn() {
         backBtn.translatesAutoresizingMaskIntoConstraints = false
-        backBtn.setImage(UIImage(named: "back"), for: .normal)
+        backBtn.setImage(R.image.arrow_left(), for: .normal)
         backBtn.isUserInteractionEnabled = true
         backBtn.isHidden = false
         backBtn.layer.opacity = 1.0
@@ -105,7 +105,7 @@ class UserProfileUIView: UIView {
     private func initPositionLbl() {
         positionLbl.translatesAutoresizingMaskIntoConstraints = false
         positionLbl.font = .systemFont(ofSize: 13, weight: .regular)
-        positionLbl.textColor = UIColor(rgb: 0x55555C)
+        positionLbl.textColor = R.color.text_black_light()
         
         addSubview(positionLbl)
         positionLbl.snp.makeConstraints { make in
@@ -138,7 +138,7 @@ class UserProfileUIView: UIView {
     
     private func initSeparatorLineV() {
         separatorLineV.translatesAutoresizingMaskIntoConstraints = false
-        separatorLineV.backgroundColor = UIColor(rgb: 0xF7F7F8)
+        separatorLineV.backgroundColor = R.color.grey_light()
         
         infoBackView.addSubview(separatorLineV)
         separatorLineV.snp.makeConstraints { make in
@@ -174,8 +174,8 @@ class UserProfileUIView: UIView {
         fioLbl.text = "\(data.firstName) \(data.lastName)"
         departmentLbl.text = data.userTag
         positionLbl.text = data.position
-        birthInfoCard.setupData(icon: "star", title: data.birthday, desc: data.birthday)
-        phoneNumberCard.setupData(icon: "telephone", title: data.phone, desc: nil)
+        birthInfoCard.setupData(icon: R.image.star(), title: data.birthday, desc: data.birthday)
+        phoneNumberCard.setupData(icon: R.image.telephone(), title: data.phone, desc: nil)
     }
 }
 
@@ -183,83 +183,5 @@ class CustomBackBtnView: UIButton {
     
     override func point(inside point: CGPoint, with event: UIEvent?) -> Bool {
         return bounds.insetBy(dx: -20, dy: -20).contains(point)
-    }
-}
-
-class UserInfoCell: UIView {
-    
-    private let backView = UIView()
-    private let iconImg = UIImageView()
-    private let titleLbl = UILabel()
-    private let descLbl = UILabel()
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        backgroundColor = .white
-        initBackView()
-        initIconImg()
-        initTitleLbl()
-        initDescLbl()
-    }
-    
-    private func initBackView() {
-        backView.translatesAutoresizingMaskIntoConstraints = false
-        
-        addSubview(backView)
-        backView.snp.makeConstraints { make in
-            make.top.leading.trailing.bottom.equalToSuperview()
-            make.height.equalTo(60)
-        }
-    }
-    
-    private func initIconImg() {
-        iconImg.translatesAutoresizingMaskIntoConstraints = false
-        
-        backView.addSubview(iconImg)
-        iconImg.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalToSuperview()
-            make.height.width.equalTo(24)
-        }
-    }
-    
-    private func initTitleLbl() {
-        titleLbl.translatesAutoresizingMaskIntoConstraints = false
-        titleLbl.font = .systemFont(ofSize: 16, weight: .medium)
-        titleLbl.textColor = .black
-        
-        backView.addSubview(titleLbl)
-        titleLbl.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.leading.equalTo(iconImg.snp.trailing).offset(12)
-        }
-    }
-    
-    private func initDescLbl() {
-        descLbl.translatesAutoresizingMaskIntoConstraints = false
-        descLbl.font = .systemFont(ofSize: 16, weight: .medium)
-        descLbl.textColor = UIColor(rgb: 0x97979B)
-        
-        backView.addSubview(descLbl)
-        descLbl.snp.makeConstraints { make in
-            make.centerY.equalToSuperview()
-            make.trailing.equalToSuperview().offset(-4)
-        }
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-    public func setupData(icon: String, title: String, desc: String?) {
-        iconImg.image = UIImage(named: icon)
-        
-        let age = desc?.calculateToAge()
-        if let _ = desc, let age, age != -1 {
-            descLbl.text = "\(age) года"
-            titleLbl.text = title.calculateBirthday()
-        } else {
-            titleLbl.text = title.formattedPhone()
-        }
     }
 }

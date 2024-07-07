@@ -51,7 +51,7 @@ class CriticalErrorView: UIView {
     
     private func initImageView() {
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.image = UIImage(named: "fly_plane")
+        imageView.image = R.image.fly_plane()
         
         imageView.snp.makeConstraints { make in
             make.height.width.equalTo(56)
@@ -60,23 +60,23 @@ class CriticalErrorView: UIView {
     
     private func initTitleLbl() {
         titleLbl.translatesAutoresizingMaskIntoConstraints = false
-        titleLbl.text = "Какой-то сверхразум все сломал"
+        titleLbl.text = R.string.strings.smbyBreak()
         titleLbl.font = .systemFont(ofSize: 17, weight: .bold)
-        titleLbl.textColor = UIColor(rgb: 0x050510)
+        titleLbl.textColor = R.color.text_black_dark()
     }
     
     private func initDescLbl() {
         descriptionLbl.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLbl.text = "Постараемся быстро починить"
+        descriptionLbl.text = R.string.strings.weTryFixIt()
         titleLbl.font = .systemFont(ofSize: 16, weight: .regular)
-        descriptionLbl.textColor = UIColor(rgb: 0x97979B)
+        descriptionLbl.textColor = R.color.text_black_light()
     }
     
     private func initRepeatAgainBtn() {
         repeatAgainBtn.translatesAutoresizingMaskIntoConstraints = false
-        repeatAgainBtn.setTitle("Попробовать снова", for: .normal)
+        repeatAgainBtn.setTitle(R.string.strings.tryAgain(), for: .normal)
         repeatAgainBtn.backgroundColor = .white
-        repeatAgainBtn.setTitleColor(UIColor(rgb: 0x6534FF), for: .normal)
+        repeatAgainBtn.setTitleColor(R.color.main_purple(), for: .normal)
         
         repeatAgainBtn.addTarget(self, action: #selector(repeatBtnAction), for: .touchUpInside)
     }

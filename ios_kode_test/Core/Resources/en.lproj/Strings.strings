@@ -1,0 +1,15 @@
+/* 
+  Strings.strings
+  ios_kode_test
+
+  Created by Khurshed Umarov on 07.07.2024.
+  
+*/
+
+"enterNameTag" = "Введи имя, тег, почту ...";
+"cancel" = "Отмена";
+"weNobodyFound" = "Мы никого не нашли";
+"tryCorrectQuery" = "Попробуй скорректировать запрос";
+"smbyBreak" = "Какой-то сверхразум все сломал";
+"weTryFixIt" = "Постараемся быстро починить";
+"tryAgain" = "Попробовать снова";

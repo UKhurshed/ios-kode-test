@@ -9,6 +9,7 @@ target 'ios_kode_test' do
   pod 'Moya'
   pod 'Kingfisher'
   pod 'IQKeyboardManagerSwift'
+  pod 'R.swift'
 
 
   # Pods for ios_kode_test
